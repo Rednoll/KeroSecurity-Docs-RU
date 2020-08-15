@@ -82,7 +82,10 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Hello World!</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hello World!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Схема</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -150,7 +153,6 @@
             
   <div class="section" id="hello-world">
 <h1>Hello World!<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h1>
-<p>&lt;WRITE&gt;</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">KeroSecurityManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">KeroSecurityManager</span><span class="p">.</span><span class="na">getInstance</span><span class="p">();</span>
 
 <span class="n">manager</span>
@@ -168,6 +170,20 @@
 
 <span class="n">protectedWithSomeRole</span><span class="p">.</span><span class="na">getText</span><span class="p">();</span> <span class="c1">// &lt;- throw AccessException</span>
 </pre></div>
+</div>
+<div class="section" id="id1">
+<h2>Схема<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">manager</span>
+    <span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">TestObject</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">defaultDeny</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">property</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">grantFor</span><span class="p">(</span><span class="s">&quot;OWNER&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">TestObject</span> <span class="n">protectedWithOwner</span> <span class="o">=</span> <span class="n">manager</span><span class="p">.</span><span class="na">protect</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&quot;OWNER&quot;</span><span class="p">);</span>
+<span class="n">TestObject</span> <span class="n">protectedWithSomeRole</span> <span class="o">=</span> <span class="n">manager</span><span class="p">.</span><span class="na">protect</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&quot;SOME_ROLE&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
 </div>
 </div>
 

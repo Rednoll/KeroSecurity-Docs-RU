@@ -1,7 +1,7 @@
 Hello World!
 ============
 
-<WRITE>
+
 
 .. code-block:: java
 	
@@ -21,3 +21,23 @@ Hello World!
 	protectedWithOwner.getText(); // <- OK
 
 	protectedWithSomeRole.getText(); // <- throw AccessException
+
+Схема
+#####
+
+.. code-block:: java
+
+	manager
+	    .type(TestObject.class)
+	        .defaultDeny()
+	        .property("text")  
+	            .grantFor("OWNER");
+
+
+
+.. code-block:: java
+
+	TestObject protectedWithOwner = manager.protect(obj, "OWNER");
+	TestObject protectedWithSomeRole = manager.protect(obj, "SOME_ROLE");
+
+
