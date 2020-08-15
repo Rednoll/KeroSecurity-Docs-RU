@@ -188,13 +188,7 @@
 <span class="n">protectedWithSomeRole</span><span class="p">.</span><span class="na">getText</span><span class="p">();</span> <span class="c1">// &lt;- throw AccessException</span>
 </pre></div>
 </td></tr></table></div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Защита поля - защита его get метода! Не используйте прямой доступ к полям.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Cхему можно описать с помощью аннотаций:</p>
+<p>С использованием аннотаций:</p>
 <div class="highlight-java notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -208,7 +202,7 @@
 11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nd">@DefaultDeny</span>
 <span class="kd">class</span> <span class="nc">TestObject</span> <span class="p">{</span>
 
-    <span class="nd">@GrantFor</span><span class="p">(</span><span class="s">&quot;OWNER&quot;</span><span class="p">)</span>
+    <span class="nd">@GrantFor</span><span class="p">(</span><span class="s">&quot;OWNER&quot;</span><span class="p">)</span><span class="n">s</span>
     <span class="kd">private</span> <span class="n">String</span> <span class="n">text</span><span class="p">;</span>
 
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">getText</span><span class="p">()</span> <span class="p">{</span>
@@ -218,6 +212,9 @@
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Защита поля - защита его get метода! Не используйте прямой доступ к полям.</p>
 </div>
 </div>
 <div class="section" id="id3">
@@ -265,8 +262,6 @@
 <span class="n">protectedWithSomeRole</span><span class="p">.</span><span class="na">getText</span><span class="p">();</span> <span class="c1">// &lt;- throw AccessException</span>
 </pre></div>
 </td></tr></table></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>С помощью аннотаций:</p>
 <div class="highlight-java notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -311,7 +306,6 @@
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-</div>
 </div>
 <div class="section" id="id4">
 <h2>Интерцептор (дефолтный)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
@@ -358,8 +352,6 @@
 <span class="n">protectedWithSomeRole</span><span class="p">.</span><span class="na">getText</span><span class="p">();</span> <span class="c1">// &lt;- return &quot;You not have access!&quot;;</span>
 </pre></div>
 </td></tr></table></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>С помощью аннотаций:</p>
 <div class="highlight-java notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -404,7 +396,6 @@
 <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-</div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>Приоритеты интерцепторов</p>

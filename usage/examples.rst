@@ -24,26 +24,25 @@
 	protectedWithOwner.getText(); // <- OK
 	protectedWithSomeRole.getText(); // <- throw AccessException
 
+С использованием аннотаций:
+
+.. code-block:: java
+	:linenos:
+
+	@DefaultDeny
+	class TestObject {
+
+	    @GrantFor("OWNER")
+	    private String text;
+
+	    public String getText() {
+
+	        return this.text;
+	    }
+	}
+
 .. warning::
 	Защита поля - защита его get метода! Не используйте прямой доступ к полям.
-
-.. note::
-	Cхему можно описать с помощью аннотаций:
-
-	.. code-block:: java
-		:linenos:
-
-		@DefaultDeny
-		class TestObject {
-
-		    @GrantFor("OWNER")
-		    private String text;
-
-		    public String getText() {
-
-		        return this.text;
-		    }
-		}
 
 Интерцептор (таргетированный)
 -----------------------------
@@ -73,33 +72,32 @@
 	protectedWithFriend.getText(); // <- return "Friends not have access!";
 	protectedWithSomeRole.getText(); // <- throw AccessException
 
-.. note::
-	С помощью аннотаций:
+С использованием аннотаций:
 
-	.. code-block:: java
-		:linenos:
+.. code-block:: java
+	:linenos:
 
-		@DefaultDeny
-		class TestObject {
+	@DefaultDeny
+	class TestObject {
 
-		    @GrantFor("OWNER")
-		    @AddDenyInterceptor(value = TestInterceptor.class, roles = {"FRIEND"})
-		    private String text;
+	    @GrantFor("OWNER")
+	    @AddDenyInterceptor(value = TestInterceptor.class, roles = {"FRIEND"})
+	    private String text;
 
-		    public String getText() {
+	    public String getText() {
 
-		        return this.text;
-		    }
-		}
+	        return this.text;
+	    }
+	}
 
-		class TestInterceptor extends DenyInterceptorBase {
+	class TestInterceptor extends DenyInterceptorBase {
 
-		    @Override
-		    public Object intercept(Object obj) {
+	    @Override
+	    public Object intercept(Object obj) {
 
-		        return "Friends not have access!";
-		    }
-		}
+	        return "Friends not have access!";
+	    }
+	}
 
 Интерцептор (дефолтный)
 -----------------------------
@@ -129,33 +127,32 @@
 	protectedWithFriend.getText(); // <- return "You not have access!";
 	protectedWithSomeRole.getText(); // <- return "You not have access!";
 
-.. note::
-	С помощью аннотаций:
+С использованием аннотаций:
 
-	.. code-block:: java
-		:linenos:
+.. code-block:: java
+	:linenos:
 
-		@DefaultDeny
-		class TestObject {
+	@DefaultDeny
+	class TestObject {
 
-		    @GrantFor("OWNER")
-		    @DefaultInterceptor(TestInterceptor.class)
-		    private String text;
+	    @GrantFor("OWNER")
+	    @DefaultInterceptor(TestInterceptor.class)
+	    private String text;
 
-		    public String getText() {
+	    public String getText() {
 
-		        return this.text;
-		    }
-		}
+	        return this.text;
+	    }
+	}
 
-		class TestInterceptor extends DenyInterceptorBase {
+	class TestInterceptor extends DenyInterceptorBase {
 
-		    @Override
-		    public Object intercept(Object obj) {
+	    @Override
+	    public Object intercept(Object obj) {
 
-		        return "You not have access!";
-		    }
-		}
+	        return "You not have access!";
+	    }
+	}
 
 .. seealso::
 	Приоритеты интерцепторов
