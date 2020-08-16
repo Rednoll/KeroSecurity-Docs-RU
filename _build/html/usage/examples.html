@@ -36,6 +36,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Руководство" href="guide.html" />
     <link rel="prev" title="Welcome to Kero-Security’s documentation!" href="../index.html" /> 
 </head>
 
@@ -88,6 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id4">Интерцептор (дефолтный)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Руководство</a></li>
 </ul>
 
             
@@ -202,7 +204,7 @@
 11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nd">@DefaultDeny</span>
 <span class="kd">class</span> <span class="nc">TestObject</span> <span class="p">{</span>
 
-    <span class="nd">@GrantFor</span><span class="p">(</span><span class="s">&quot;OWNER&quot;</span><span class="p">)</span><span class="n">s</span>
+    <span class="nd">@GrantFor</span><span class="p">(</span><span class="s">&quot;OWNER&quot;</span><span class="p">)</span>
     <span class="kd">private</span> <span class="n">String</span> <span class="n">text</span><span class="p">;</span>
 
     <span class="kd">public</span> <span class="n">String</span> <span class="nf">getText</span><span class="p">()</span> <span class="p">{</span>
@@ -262,7 +264,7 @@
 <span class="n">protectedWithSomeRole</span><span class="p">.</span><span class="na">getText</span><span class="p">();</span> <span class="c1">// &lt;- throw AccessException</span>
 </pre></div>
 </td></tr></table></div>
-<p>С помощью аннотаций:</p>
+<p>С использованием аннотаций:</p>
 <div class="highlight-java notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -352,7 +354,7 @@
 <span class="n">protectedWithSomeRole</span><span class="p">.</span><span class="na">getText</span><span class="p">();</span> <span class="c1">// &lt;- return &quot;You not have access!&quot;;</span>
 </pre></div>
 </td></tr></table></div>
-<p>С помощью аннотаций:</p>
+<p>С использованием аннотаций:</p>
 <div class="highlight-java notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -410,6 +412,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="guide.html" class="btn btn-neutral float-right" title="Руководство" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Kero-Security’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
