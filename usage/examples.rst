@@ -11,7 +11,7 @@
 	KeroSecurityManager manager = KeroSecurityManager.getInstance();
 
 	manager
-	    .type(TestObject.class)
+	    .scheme(TestObject.class)
 	        .defaultDeny()
 	        .property("text")
 	            .grantFor("OWNER");
@@ -53,7 +53,7 @@
 	KeroSecurityManager manager = KeroSecurityManager.getInstance();
 
 	manager
-	    .type(TestObject.class)
+	    .scheme(TestObject.class)
 	        .defaultDeny()
 	        .property("text")
 	            .grantFor("OWNER")
@@ -100,7 +100,7 @@
 	}
 
 Интерцептор (дефолтный)
------------------------------
+-----------------------
 
 .. code-block:: java
 	:linenos:
@@ -108,7 +108,7 @@
 	KeroSecurityManager manager = KeroSecurityManager.getInstance();
 
 	manager
-	    .type(TestObject.class)
+	    .scheme(TestObject.class)
 	        .defaultDeny()
 	        .property("text")
 	            .grantFor("OWNER")
