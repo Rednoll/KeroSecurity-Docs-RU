@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Глоссарий (WIP) &mdash; Kero-Security  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hello World (WIP)" href="helloworld.html" />
+    <link rel="prev" title="Руководство (WIP)" href="guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Kero-Security
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Руководство (WIP)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Глоссарий (WIP)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#keroaccessagent">KeroAccessAgent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessscheme">AccessScheme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#property">Property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessrule">AccessRule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#denyinterceptor">DenyInterceptor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preparedaccessconfiguration">PreparedAccessConfiguration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#role">Role</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="helloworld.html">Hello World (WIP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Декларирование схем доступ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Kero-Security</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Глоссарий (WIP)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/glossary.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="wip">
+<h1>Глоссарий (WIP)<a class="headerlink" href="#wip" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="keroaccessagent">
+<span id="id1"></span><h2>KeroAccessAgent<a class="headerlink" href="#keroaccessagent" title="Permalink to this headline">¶</a></h2>
+<p>Агент представляет из себя фасад KeroSecurity, дающий доступ ко всем основным функциям фреймворка.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Агентов у приложения может быть несколько, при этом у каждого агента свои <a class="reference internal" href="#accessscheme"><span class="std std-ref">схемы</span></a>, <a class="reference internal" href="#role"><span class="std std-ref">роли</span></a> и т.д. В большинстве случаев приложению хватает одного Агента.</p>
+</div>
+<p>Получить Агента можно используя KeroAccessAgentFactory. Настройка Агента производится с помощью конфигураторов (KeroAccessAgentConfigurator) их необходимо передать фабрике перед созданием Агента.</p>
+</div>
+<div class="section" id="accessscheme">
+<span id="id2"></span><h2>AccessScheme<a class="headerlink" href="#accessscheme" title="Permalink to this headline">¶</a></h2>
+<p>Схема описывает как защищать конкретный класс объектов. С</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Схемы можно описывать как для классов, так и для интерфейсов.</p>
+</div>
+</div>
+<div class="section" id="property">
+<span id="id3"></span><h2>Property<a class="headerlink" href="#property" title="Permalink to this headline">¶</a></h2>
+<p>Набор правил доступа, интерцепторов и т.д. для конкретного свойства объекта.</p>
+</div>
+<div class="section" id="accessrule">
+<span id="id4"></span><h2>AccessRule<a class="headerlink" href="#accessrule" title="Permalink to this headline">¶</a></h2>
+<p>Правило доступа к свойству объекта. Представляет из себя набор <a class="reference internal" href="#role"><span class="std std-ref">ролей</span></a>, которым оно либо разрешает доступ, либо запрещает.</p>
+</div>
+<div class="section" id="denyinterceptor">
+<span id="id5"></span><h2>DenyInterceptor<a class="headerlink" href="#denyinterceptor" title="Permalink to this headline">¶</a></h2>
+<p>Интерцептор запрета доступа является функцией, которая вызывается вместо запрещенной.</p>
+</div>
+<div class="section" id="preparedaccessconfiguration">
+<h2>PreparedAccessConfiguration<a class="headerlink" href="#preparedaccessconfiguration" title="Permalink to this headline">¶</a></h2>
+<p>Подготовленная конфигурация доступа - производное от <a class="reference internal" href="#accessscheme"><span class="std std-ref">схемы доступа</span></a>, если схема доступа хранит все <a class="reference internal" href="#accessrule"><span class="std std-ref">правила</span></a>, <a class="reference internal" href="#denyinterceptor"><span class="std std-ref">интерцепторы</span></a> и т.д. То конфигурация хранит конкретные значения для определенного набора ролей (доступ к свойству А разрешен или нет. Если нет, то какой <a class="reference internal" href="#denyinterceptor"><span class="std std-ref">интерцептор</span></a> использовать).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>При стандартном изспользовании Kero-Security подготовленные конфигруации остаются “под капотом” системы, поэтому некоторые детали могут быть опущены.</p>
+</div>
+</div>
+<div class="section" id="role">
+<span id="id6"></span><h2>Role<a class="headerlink" href="#role" title="Permalink to this headline">¶</a></h2>
+<p>Роль по сути является чисто меткой с названием и не имеет какого-либо поведения.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="helloworld.html" class="btn btn-neutral float-right" title="Hello World (WIP)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="guide.html" class="btn btn-neutral float-left" title="Руководство (WIP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Kerovazzky
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
