@@ -88,10 +88,13 @@
 <li class="toctree-l1"><a class="reference internal" href="helloworld.html">Hello World (WIP)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">KSDL</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Синтаксис</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Объявление начала схемы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Схема</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Свойство</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Дефолтное правило доступа</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Металайны</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Соглашение по стилю кода</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">Соглашение по стилю кода</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sources.html">Декларирование схем доступа (WIP)</a></li>
@@ -162,16 +165,93 @@
             
   <div class="section" id="ksdl">
 <h1>KSDL<a class="headerlink" href="#ksdl" title="Permalink to this headline">¶</a></h1>
-<p>Kero-Security Declarative Language - небольшой декларативный язык, используемый для описания схем доступа Kero-Security.</p>
+<p><strong>Kero-Security Declarative Language</strong> - небольшой декларативный язык, используемый для описания схем доступа Kero-Security.</p>
 <div class="section" id="id1">
 <h2>Синтаксис<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id2">
-<h3>Объявление начала схемы<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>scheme *scheme_name* {</p>
+<p>Ключевые слова:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">scheme</span></code> - начало объявления схемы</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code> - начало металайна</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:</span></code> - начало шорт блока</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\n</span></code> (перенос строки) - конец шорт блока</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{</span></code> - начало обычного блока</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">}</span></code> - конец обычного блока</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Блоки взаимозаменяемы т.е.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">propagation</span><span class="p">:</span> <span class="n">OWNER</span> <span class="o">-&gt;</span> <span class="n">FRIEND</span> <span class="o">-&gt;</span> <span class="n">COMMON</span>
+</pre></div>
 </div>
+<p>идентично</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">propagation</span> <span class="p">{</span>
+
+  <span class="n">OWNER</span> <span class="o">-&gt;</span>
+  <span class="n">FRIEND</span> <span class="o">-&gt;</span>
+  <span class="n">COMMON</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Схема<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Объявление схемы:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scheme</span> <span class="n">SomeScheme</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">scheme</span></code> - ключевое слово</p></li>
+<li><p>SomeScheme - название схемы</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(G)</span></code> - дефолтное правило доступа (опционально)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{</span></code> - начало тела схемы (опционально)</p></li>
+</ul>
 </div>
 <div class="section" id="id3">
-<h2>Соглашение по стилю кода<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h3>Свойство<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Объявление свойства:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scheme</span> <span class="n">SomeScheme</span> <span class="p">{</span>
+
+  <span class="n">obj</span><span class="p">(</span><span class="n">D</span><span class="p">):</span> <span class="o">+</span><span class="n">OWNER</span> <span class="o">-</span><span class="n">FRIEND</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>obj - имя свойства</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(D)</span></code> - дефолтное правило доступа (опционально)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:</span></code> - начало тела свойства (опционально)</p></li>
+</ul>
+<p>В теле свойства указываются роли, которые имеют доступ (перед их названием ставится <code class="docutils literal notranslate"><span class="pre">+</span></code>) и роли которым он запрещен (перед их названием ставится <code class="docutils literal notranslate"><span class="pre">-</span></code>).</p>
+</div>
+<div class="section" id="id4">
+<h3>Дефолтное правило доступа<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Для установки дефолтного правила, вам необходимо после имени свойства или схемы написать флаг:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(G)</span></code> - по дефолту разрешать доступ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(D)</span></code> - по дефолту запрещать доступ</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scheme</span> <span class="n">SomeScheme</span><span class="p">(</span><span class="n">G</span><span class="p">):</span> <span class="p">{</span>
+
+  <span class="n">obj</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>Металайны<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><strong>Propagation</strong> - настройка распространения доступа.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">propagation</span><span class="p">:</span> <span class="n">OWNER</span> <span class="o">-&gt;</span> <span class="n">FRIEND</span> <span class="o">-&gt;</span> <span class="n">COMMON</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Если нужно настроить несколько цепочек распространения, напишите отдельный металайн для новой цепочки.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Соглашение по стилю кода<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <img alt="../_images/syntax_example.png" src="../_images/syntax_example.png" />
 <ul class="simple">
 <li><p>Отступ вложенности - 2 пробела или 1 таб.</p></li>
