@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Под капотом &mdash; Kero-Security  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Декларирование схем доступа (WIP)" href="sources.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Kero-Security
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Глоссарий (WIP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="k-s-spring-graphql-example.html">Kero-Scurity + Spring + GraphQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ksdl.html">KSDL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Декларирование схем доступа (WIP)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Под капотом</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#agent-protect">Вызов agent.protect(…)</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Kero-Security</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Под капотом</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/underthehood.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Под капотом<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>В данном разделе представленно описание работы K-S под капотом, а также более подробно описаны некоторые не очевидные моменты работы K-S.</p>
+<div class="section" id="agent-protect">
+<h2>Вызов agent.protect(…)<a class="headerlink" href="#agent-protect" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Сперва Агент проверяет существует ли схема доступа для класса этой сущности, если нет, то он создает пустую схему и настривает её с помощью источников конфигураций (аннотации, KSDL и т.д.).</p></li>
+<li><p>Далее Агент делегирует <code class="docutils literal notranslate"><span class="pre">protect</span></code> схеме.</p></li>
+<li><p>Если схема НЕ имеет прокси класса для этой сущности - он создается. Для этого есть 2 сценария:</p>
+<p>Если класс сущности можно унаследовать - прокси класс наследует класс сущности.</p>
+<img alt="../_images/proxy_sublclass.png" class="align-center" src="../_images/proxy_sublclass.png" />
+<p>Если класс сущности нельзя унаследовать - прокси класс реализует все его интерфейсы (до ближайшего родительского класса) и старается унаследовать ближайший родительский класс.</p>
+<img alt="../_images/proxy_adaptive.png" class="align-center" src="../_images/proxy_adaptive.png" />
+</li>
+<li><p>Далее схема подготавливает конфигурацию для переданного набора ролей.</p>
+<p>Процесс создание конфигурации, представляет из себя поиск правил доступа/интерцепторов и т.д. для конкретного списка ролей (переданных при вызове <code class="docutils literal notranslate"><span class="pre">protect</span></code>) и формирования “ответа” на запрос доступа к свойству:</p>
+<ul class="simple">
+<li><p>предоставить доступ - делегация вызова объекту оригиналу.</p></li>
+<li><p>запретить доступ - выброс эксепшена.</p></li>
+<li><p>вызов интерцептора - делегация вызова интерцептору.</p></li>
+</ul>
+<p>Поиск выполняется по следующему алгоритму:</p>
+<ol class="arabic simple">
+<li><p>Получаем данные от класса.</p></li>
+<li><p>Получаем данные от реализуемых им интерфейсов.</p></li>
+<li><p>Поднимаеся на класс выше по дереву наследования.</p></li>
+</ol>
+<p>В итоге мы получаем такой порядок поиска:</p>
+<img alt="../_images/rules_priority.png" class="align-center" src="../_images/rules_priority.png" />
+<p><strong>Наивысший приоритет имеет первое найденное правило/интерцептор, а наименьший - последнее найденное.</strong></p>
+</li>
+<li><p>В завершение схема создает прокси объект с подготовленной конфигурацией и оборачивает в него оригинал.</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="sources.html" class="btn btn-neutral float-left" title="Декларирование схем доступа (WIP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Kerovazzky
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

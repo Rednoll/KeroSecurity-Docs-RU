@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kero-Security + Spring + GraphQL &mdash; Kero-Security  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KSDL" href="ksdl.html" />
+    <link rel="prev" title="Глоссарий (WIP)" href="glossary.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Kero-Security
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Глоссарий (WIP)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kero-Security + Spring + GraphQL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Задача</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Общий план</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Описание схемы доступа</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ksdl.html">KSDL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Декларирование схем доступа (WIP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="underthehood.html">Под капотом</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Kero-Security</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Kero-Security + Spring + GraphQL</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/k-s-spring-graphql-example.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kero-security-spring-graphql">
+<h1>Kero-Security + Spring + GraphQL<a class="headerlink" href="#kero-security-spring-graphql" title="Permalink to this headline">¶</a></h1>
+<p>Здесь мы посмотрим на простой пример использования Kero-Security + Spring + GraphQL.</p>
+<div class="section" id="id1">
+<h2>Задача<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Есть сущность Человек c некоторым набором свойств. Необходимо предоставить к ней доступ посредством GraphQL с возможностью предоставлять разные уровни доступа:</p>
+<ul class="simple">
+<li><p>OWNER - имеет доступ ко всем своим данным.</p></li>
+<li><p>FRIEND - имеет доступ к почте, телефону, дате рождения и списку друзей.</p></li>
+<li><p>AUTHED - имеет доступ к id.</p></li>
+</ul>
+<p>Также данные о имени и поле должны быть доступны всем.</p>
+</div>
+<div class="section" id="id2">
+<h2>Общий план<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Схему доступа к сущности, для наглядности как класса так и правил доступа, опишем с помощью аннотаций (вы можете использовать любой способ <a class="reference internal" href="sources.html"><span class="doc">декларации схемы доступа</span></a>)</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>Описание схемы доступа<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Опишем схему доступа к сущности с помощью аннотаций:</p>
+<div class="highlight-java notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nd">@DefaultDeny</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Human</span> <span class="p">{</span>
+
+  <span class="nd">@DefaultGrant</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+
+  <span class="nd">@DefaultGrant</span>
+  <span class="kd">private</span> <span class="n">Sex</span> <span class="n">sex</span><span class="p">;</span>
+
+  <span class="nd">@GrantFor</span><span class="p">({</span><span class="s">&quot;OWNER&quot;</span><span class="p">,</span> <span class="s">&quot;FRIEND&quot;</span><span class="p">})</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">mail</span><span class="p">;</span>
+
+  <span class="nd">@GrantFor</span><span class="p">({</span><span class="s">&quot;OWNER&quot;</span><span class="p">,</span> <span class="s">&quot;FRIEND&quot;</span><span class="p">})</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">phone</span><span class="p">;</span>
+
+  <span class="nd">@GrantFor</span><span class="p">({</span><span class="s">&quot;OWNER&quot;</span><span class="p">,</span> <span class="s">&quot;FRIEND&quot;</span><span class="p">})</span>
+  <span class="kd">private</span> <span class="n">LocalDate</span> <span class="n">birthDate</span><span class="p">;</span>
+
+  <span class="nd">@GrantFor</span><span class="p">(</span><span class="s">&quot;AUTHED&quot;</span><span class="p">)</span>
+  <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="p">;</span>
+
+  <span class="nd">@GrantFor</span><span class="p">({</span><span class="s">&quot;OWNER&quot;</span><span class="p">,</span> <span class="s">&quot;FRIEND&quot;</span><span class="p">})</span>
+  <span class="nd">@PropagateRoles</span><span class="p">({</span>
+    <span class="nd">@PropagateRole</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="s">&quot;OWNER&quot;</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="s">&quot;FRIEND&quot;</span><span class="p">),</span>
+    <span class="nd">@PropagateRole</span><span class="p">(</span><span class="n">from</span> <span class="o">=</span> <span class="s">&quot;FRIEND&quot;</span><span class="p">,</span> <span class="n">to</span> <span class="o">=</span> <span class="s">&quot;AUTHED&quot;</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="kd">private</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Human</span><span class="o">&gt;</span> <span class="n">friends</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ksdl.html" class="btn btn-neutral float-right" title="KSDL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="glossary.html" class="btn btn-neutral float-left" title="Глоссарий (WIP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Kerovazzky
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
